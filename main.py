@@ -16,15 +16,17 @@ def show_tray_icon():
         if menu_item == 'Выход':
             break
         elif menu_item == 'Настройки':
-            sGUI.popup('Menu item chosen')
+            logging.info("Settings menu event")
 
 
 def main_thread(alarm: a.Alarm):
     logging.info("Running daemon")
     ring_time = False
     while True:
-        if alarm.is_ring_time() and not ring_time:
-            ring_time = True
+        if alarm.is_ring_time():
+            if not ring_time:
+                ring_time = True
+                logging.info("Alarm is ringing")
         else:
             ring_time = False
         time.sleep(5)
@@ -38,4 +40,4 @@ if __name__ == '__main__':
     main_loop = threading.Thread(target=main_thread, args=(alarm_entity,), daemon=True)
     main_loop.start()
 
-    show_tray_icon()
+    show_tray_icon()  # endless loop
