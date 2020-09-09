@@ -2,7 +2,9 @@ import time
 
 
 class Alarm(object):
-    def __init__(self, alarms: list):
+    def __init__(self, alarms=None):
+        if alarms is None:
+            alarms = []
         self.alarms = alarms
 
     def set(self, alarms: list):
