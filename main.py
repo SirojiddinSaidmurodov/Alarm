@@ -1,10 +1,10 @@
 import logging
 import time
 import threading
-from tkinter import Tk
 
 import PySimpleGUIQt as sGUI
-import alarm as a
+import alarmcontainer as a
+import settings
 
 
 def show_tray_icon():
@@ -17,9 +17,10 @@ def show_tray_icon():
             break
         elif menu_item == 'Настройки':
             logging.info("Settings menu event")
+            settings.run()
 
 
-def main_thread(alarm: a.Alarm):
+def alarm_daemon(alarm: a.AlarmContainer):
     logging.info("Running daemon")
     ring_time = False
     while True:
@@ -36,8 +37,8 @@ if __name__ == '__main__':
     logging.basicConfig(format="%(asctime)s: %(message)s", level=logging.INFO,
                         datefmt="%H:%M:%S")
 
-    alarm_entity = a.Alarm()
-    main_loop = threading.Thread(target=main_thread, args=(alarm_entity,), daemon=True)
+    alarm_entity = a.AlarmContainer()
+    main_loop = threading.Thread(target=alarm_daemon, args=(alarm_entity,), daemon=True)
     main_loop.start()
 
     show_tray_icon()  # endless loop
