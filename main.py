@@ -1,3 +1,14 @@
-if __name__ == '__main__':
-    pass
+import PySimpleGUIQt as sg
 
+if __name__ == '__main__':
+    menu_def = ['BLANK', ['&Open', '---', '&Save', ['1', '2', ['a', 'b']], '&Properties', 'E&xit']]
+
+    tray = sg.SystemTray(menu=menu_def, filename=r'tray_icon.png')
+
+    while True:  # The event loop
+        menu_item = tray.read()
+        print(menu_item)
+        if menu_item == 'Exit':
+            break
+        elif menu_item == 'Open':
+            sg.popup('Menu item chosen', menu_item)
