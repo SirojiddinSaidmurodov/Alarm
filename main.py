@@ -3,12 +3,14 @@ import time
 import threading
 
 import PySimpleGUIQt as sGUI
+
+import about
 import alarmcontainer as a
 import settings
 
 
 def show_tray_icon():
-    menu_def = ['', ['&Настройки', '&Выход']]
+    menu_def = ['', ['&Настройки', '&О программе', '&Выход']]
     tray = sGUI.SystemTray(menu=menu_def, filename=r'icon.png')
     while True:  # The event loop
         menu_item = tray.read()
@@ -16,8 +18,11 @@ def show_tray_icon():
         if menu_item == 'Выход':
             break
         elif menu_item == 'Настройки':
-            logging.info("Settings menu event")
+            logging.info("Настройки")
             settings.run()
+        elif menu_item == "О программе":
+            logging.info("О программе")
+            about.run()
 
 
 def alarm_daemon(alarm: a.AlarmContainer):
