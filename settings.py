@@ -18,14 +18,11 @@ def create_week_days_selector(container):
 def create_time_selector(container):
     f_time = LabelFrame(container, text="Время")
     f_time.pack()
-    hour = StringVar()
-    minute = StringVar()
-    hour_entry = Entry(f_time, textvariable=hour, width=2)
-    minute_entry = Entry(f_time, textvariable=minute, width=2)
-    hour_entry.insert(0, "00")
-    minute_entry.insert(0, "00")
-    hour_entry.pack()
-    minute_entry.pack()
+    hour_entry = Spinbox(f_time, width=4, from_=0, to=23, wrap=True)
+    minute_entry = Spinbox(f_time, width=4, from_=0, to=59, wrap=True)
+    hour_entry.pack(side=LEFT)
+    Label(f_time, text=":").pack(side=LEFT)
+    minute_entry.pack(side=LEFT)
 
 
 def run():
