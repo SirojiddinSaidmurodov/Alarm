@@ -1,4 +1,5 @@
 from tkinter import *
+import alarmcontainer
 
 week_days = ["ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ", "ВС"]
 
@@ -43,30 +44,27 @@ def add_zero(num):
     return num
 
 
-def click_action(week, hour, minute):
+def click_action(week, hour, minute, alarms_container: alarmcontainer.AlarmContainer):
     week_code = 0
     for num, day in enumerate(week):
         if day.get():
             week_code += 2 ** ((num + 1) % 7)
     hour = add_zero(hour.get())
     minute = add_zero(minute.get())
-    print(bin(week_code) + "  " + hour + ":" + minute)
+    time = hour + ":" + minute
+    alarms_container.add_alarm(alarmcontainer.Alarm(time, week_code))
 
 
-def create_done_button(week, hour, minute):
+def create_done_button(week, hour, minute, container):
     btn = Button(text="Добавить будильник", background="#555", foreground="#ccc",
-                 padx="20", pady="8", font="16", command=lambda: click_action(week, hour, minute))
+                 padx="20", pady="8", font="16", command=lambda: click_action(week, hour, minute, container))
     btn.pack()
 
 
-def run():
+def run(alarms_container):
     root = Tk()
     root.title("Настройки будильника")
     week_list = create_week_days_selector(root)
     hour_spinbox, minute_spinbox = create_time_selector(root)
-    create_done_button(week_list, hour_spinbox, minute_spinbox)
+    create_done_button(week_list, hour_spinbox, minute_spinbox, alarms_container)
     root.mainloop()
-
-
-if __name__ == "__main__":
-    run()

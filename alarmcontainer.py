@@ -13,6 +13,9 @@ class AlarmContainer(object):
     def is_ring_time(self):
         return Alarm() in self.alarms
 
+    def add_alarm(self, alarm):
+        self.alarms.append(alarm)
+
 
 class Alarm(object):
     def __init__(self, time=t.strftime('%H:%M'), weekdays=2 ** int(t.strftime('%w'))):
