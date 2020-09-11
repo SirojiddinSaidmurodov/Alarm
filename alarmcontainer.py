@@ -16,6 +16,12 @@ class AlarmContainer(object):
     def add_alarm(self, alarm):
         self.alarms.append(alarm)
 
+    def __str__(self):
+        result = ''
+        for a in self.alarms:
+            result += str(a) + '\n'
+        return result
+
 
 class Alarm(object):
     def __init__(self, time=t.strftime('%H:%M'), weekdays=2 ** int(t.strftime('%w'))):
