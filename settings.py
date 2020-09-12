@@ -64,6 +64,7 @@ def create_done_button(week, hour, minute, container):
 def run(alarms_container):
     root = Tk()
     root.title("Настройки будильника")
+    root.tk.call('wm', 'iconphoto', root._w, PhotoImage(file='icon.png'))
     week_list = create_week_days_selector(root)
     hour_spinbox, minute_spinbox = create_time_selector(root)
     create_done_button(week_list, hour_spinbox, minute_spinbox, alarms_container)
