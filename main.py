@@ -30,12 +30,13 @@ def alarm_daemon(alarm: a.AlarmContainer):
     ring_time = False
     while True:
         if alarm.is_ring_time():
+            logging.info("is ring time = true")
             if not ring_time:
                 ring_time = True
                 logging.info("Alarm is ringing")
         else:
             ring_time = False
-        logging.info(alarm)
+        logging.info(str(alarm) + str(ring_time))
         time.sleep(5)
 
 
