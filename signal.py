@@ -28,6 +28,3 @@ def alarm_ring_gui():
     daemon.start()
     root.title("Будильник")
     root.mainloop()
-
-
-alarm_ring_gui()
