@@ -24,7 +24,11 @@ class AlarmContainer(object):
 
 
 class Alarm(object):
-    def __init__(self, time=t.strftime('%H:%M'), weekdays=2 ** int(t.strftime('%w'))):
+    def __init__(self, time=None, weekdays=None):
+        if time is None:
+            time = t.strftime('%H:%M')
+        if weekdays is None:
+            weekdays = 2 ** int(t.strftime('%w'))
         self.weekdays = weekdays
         self.time = time
 
