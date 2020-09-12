@@ -5,7 +5,7 @@ week_days = ["ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ", "ВС"]
 
 
 def is_valid(input_string: str):
-    return input_string.isdigit() and len(input_string) < 3
+    return input_string.isdigit() and 59 >= int(input_string) >= 0
 
 
 def create_week_days_selector(container):
