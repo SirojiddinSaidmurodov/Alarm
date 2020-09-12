@@ -4,11 +4,13 @@ from tkinter import Tk, Button, PhotoImage
 
 import playsound
 
+sound = r'alarm.mp3'
+
 
 def make_sound():
     time.sleep(5)
     while True:
-        playsound.playsound(r'alarm.mp3')
+        playsound.playsound(sound)
 
 
 def alarm_ring_gui():
