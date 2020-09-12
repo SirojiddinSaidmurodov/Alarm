@@ -7,6 +7,7 @@ import PySimpleGUIQt as sGUI
 import about
 import alarmcontainer as a
 import settings
+import signal
 
 
 def show_tray_icon(alarms):
@@ -33,6 +34,7 @@ def alarm_daemon(alarm: a.AlarmContainer):
             logging.info("is ring time = true")
             if not ring_time:
                 ring_time = True
+                signal.alarm_ring_gui()
                 logging.info("Alarm is ringing")
         else:
             ring_time = False
