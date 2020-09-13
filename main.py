@@ -34,7 +34,8 @@ def alarm_daemon(alarm: a.AlarmContainer):
             logging.info("is ring time = true")
             if not ring_time:
                 ring_time = True
-                signal.alarm_ring_gui()
+                daemon = threading.Thread(target=signal.alarm_ring_gui, daemon=True)
+                daemon.start()
                 logging.info("Alarm is ringing")
         else:
             ring_time = False

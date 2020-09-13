@@ -7,15 +7,14 @@ import playsound
 sound = r'alarm.mp3'
 
 
-def make_sound():
+def make_sound(event: threading.Event):
     time.sleep(5)
-    while True:
+    while not event.is_set():
         playsound.playsound(sound)
 
 
 def alarm_ring_gui():
     root = Tk()
-    root.tk.call('wm', 'iconphoto', root._w, PhotoImage(file='icon.png'))
     btn = Button(text="Выключить будильник",
                  background="#f00",
                  foreground="#000",
@@ -26,7 +25,9 @@ def alarm_ring_gui():
                  font="Arial 72",
                  command=root.destroy)
     btn.pack()
-    daemon = threading.Thread(target=make_sound, daemon=True)
+    stop_event = threading.Event()
+    daemon = threading.Thread(target=make_sound, daemon=True, args=(stop_event,))
     daemon.start()
     root.title("Будильник")
     root.mainloop()
+    stop_event.set()
