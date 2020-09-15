@@ -1,16 +1,8 @@
-import threading
-import time
-from tkinter import Tk, Button, PhotoImage
+from tkinter import Tk, Button
+import pygame
 
-import playsound
-
+pygame.init()
 sound = r'alarm.mp3'
-
-
-def make_sound(event: threading.Event):
-    time.sleep(5)
-    while not event.is_set():
-        playsound.playsound(sound)
 
 
 def alarm_ring_gui():
@@ -25,9 +17,14 @@ def alarm_ring_gui():
                  font="Arial 72",
                  command=root.destroy)
     btn.pack()
-    stop_event = threading.Event()
-    daemon = threading.Thread(target=make_sound, daemon=True, args=(stop_event,))
-    daemon.start()
+
+    pygame.mixer_music.load(sound)
+    pygame.mixer_music.play(5)
+
     root.title("Будильник")
     root.mainloop()
-    stop_event.set()
+    pygame.mixer_music.stop()
+
+
+if __name__ == '__main__':
+    alarm_ring_gui()
